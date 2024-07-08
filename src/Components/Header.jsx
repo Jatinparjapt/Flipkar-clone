@@ -15,7 +15,9 @@ const Header = () => {
   const getCookies = Cookies.get("token")
   let user;
   if(getCookies){
-    user = localStorage.getItem("email")
+    let email = localStorage.getItem("userEmail")
+     let getName = email.split("@");
+     user =  getName[0]
   }
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -47,6 +49,9 @@ const Header = () => {
                 </div>
               </div>
             </div>
+            <div className={user? "flex" :"hidden" }>
+      <h1 className=' flex justify-center text-white rounded-xl text-xl  px-4 py-2 hover:bg-white hover:text-blue-500' >{user }</h1>
+     </div>
             <div className="login hover:text-white ">
                <div className="relative inline-block text-left">
       {isOpen && (
@@ -67,9 +72,7 @@ const Header = () => {
         </div>
       )}
     </div>
-     <div className="name">
-      <h1>{user? user :null }</h1>
-     </div>
+   
               <Link to={"/login"} onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
         className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium rounded-xl text-white hover:bg-white hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500" >
@@ -79,6 +82,7 @@ const Header = () => {
 
                </Link>
               </div>
+             
             <div className="cart">
               <Link to={"/cart"} className={` flex justify-center text-white rounded-xl px-4 py-2 hover:bg-white hover:text-blue-500 `} >
               <ShoppingCartIcon title={"Cart"} />
